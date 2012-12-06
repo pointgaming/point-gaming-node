@@ -1,4 +1,4 @@
-[Thu, 06 Dec 2012 22:41:47 GMT] INFO Server starting with config: {
+[Thu, 06 Dec 2012 23:22:19 GMT] INFO Server starting with config: {
   "environment": "development",
   "workers": 1,
   "port": 9999,
@@ -51,7 +51,17 @@
   },
   "secret": "Np3fGp3uCRZ01aYGORwPEGVazQ0akEVea0cXKVjNhrG5Jt4vyyjQdkkGxRJ6cVAf0X9I2hY2kiZ1jkYbkoLM4xNu4QuBSenCaiHF5GikYfSCbr49IUqEQNe684PAuOfz"
 }
-[Thu, 06 Dec 2012 22:41:47 GMT] INFO Creating 1 worker process.
-[Thu, 06 Dec 2012 22:41:47 GMT] INFO Server worker running in development on port 9999 with a PID of: 36968
-[Thu, 06 Dec 2012 22:41:47 GMT] DEBUG LOGGING STARTED ============================================
-[Thu, 06 Dec 2012 22:41:47 GMT] DEBUG ============================================================
+[Thu, 06 Dec 2012 23:22:19 GMT] INFO Creating 1 worker process.
+[Thu, 06 Dec 2012 23:22:19 GMT] INFO Server worker running in development on port 9999 with a PID of: 37660
+[Thu, 06 Dec 2012 23:22:19 GMT] DEBUG LOGGING STARTED ============================================
+[Thu, 06 Dec 2012 23:22:19 GMT] DEBUG ============================================================
+[Thu, 06 Dec 2012 23:23:59 GMT] INFO Code changed, killing 37660, cycling ...
+[Thu, 06 Dec 2012 23:23:59 GMT] INFO Creating 1 worker process.
+[Thu, 06 Dec 2012 23:24:00 GMT] INFO Server worker running in development on port 9999 with a PID of: 37672
+[Thu, 06 Dec 2012 23:24:00 GMT] DEBUG LOGGING STARTED ============================================
+[Thu, 06 Dec 2012 23:24:00 GMT] DEBUG ============================================================
+[Thu, 06 Dec 2012 23:24:04 GMT] INFO Code changed, killing 37672, cycling ...
+[Thu, 06 Dec 2012 23:24:04 GMT] INFO Creating 1 worker process.
+[Thu, 06 Dec 2012 23:24:05 GMT] INFO Server worker running in development on port 9999 with a PID of: 37675
+[Thu, 06 Dec 2012 23:24:05 GMT] DEBUG LOGGING STARTED ============================================
+[Thu, 06 Dec 2012 23:24:05 GMT] DEBUG ============================================================

@@ -1,123 +1,146 @@
-var passport = require('../helpers/passport')
-  , cryptPass = passport.cryptPass
-  , requireAuth = passport.requireAuth;
+var passport = require("../helpers/passport"),
+    cryptPass = passport.cryptPass,
+    requireAuth = passport.requireAuth;
 
 var Users = function () {
-  this.before(requireAuth, {
-    except: ['add', 'create']
-  });
-
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
-
-  this.index = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.User.all(function(err, users) {
-      self.respond({params: params, users: users});
+    this.before(requireAuth, {
+        except: ["add", "create"]
     });
-  };
 
-  this.add = function (req, resp, params) {
-    this.respond({params: params});
-  };
+    this.respondsWith = ["html", "json", "xml", "js", "txt"];
 
-  this.create = function (req, resp, params) {
-    var self = this
-      , user = geddy.model.User.create(params)
-      , sha;
+    this.index = function (req, resp, params) {
+        var that = this;
 
-    // Non-blocking uniqueness checks are hard
-    geddy.model.User.first({username: user.username}, function(err, data) {
-      if (data) {
-        params.errors = {
-          username: 'This username is already in use.'
-        };
-        self.transfer('add');
-      }
-      else {
-        if (user.isValid()) {
-          user.password = cryptPass(user.password);
-        }
-        user.save(function(err, data) {
-          if (err) {
-            params.errors = err;
-            self.transfer('add');
-          }
-          else {
-            self.redirect({controller: self.name});
-          }
+        geddy.model.User.all(function (err, users) {
+            that.respond({
+                params: params,
+                users: users
+            });
         });
-      }
-    });
+    };
 
-  };
+    this.add = function (req, resp, params) {
+        this.respond({
+            params: params
+        });
+    };
 
-  this.show = function (req, resp, params) {
-    var self = this;
+    this.create = function (req, resp, params) {
+        var that = this,
+        user = geddy.model.User.create(params),
+        sha;
 
-    geddy.model.User.first(params.id, function(err, user) {
-      if (!user) {
-        var err = new Error();
-        err.statusCode = 400;
-        self.error(err);
-      } else {
-        user.password = '';
-        self.respond({params: params, user: user.toObj()});
-      }
-    });
-  };
+        // Non-blocking uniqueness checks are hard
+        geddy.model.User.first({
+            username: user.username
+        },
+        function (err, data) {
+            if (data) {
+                params.errors = {
+                    username: "This username is already in use."
+                };
+                that.transfer("add");
+            }
+            else {
+                if (user.isValid()) {
+                    user.password = cryptPass(user.password);
+                }
+                user.save(function (err, data) {
+                    if (err) {
+                        params.errors = err;
+                        that.transfer("add");
+                    }
+                    else {
+                        that.redirect({
+                            controller: that.name
+                        });
+                    }
+                });
+            }
+        });
 
-  this.edit = function (req, resp, params) {
-    var self = this;
+    };
 
-    geddy.model.User.first(params.id, function(err, user) {
-      if (!user) {
-        var err = new Error();
-        err.statusCode = 400;
-        self.error(err);
-      } else {
-        self.respond({params: params, user: user});
-      }
-    });
-  };
+    this.show = function (req, resp, params) {
+        var that = this, e;
 
-  this.update = function (req, resp, params) {
-    var self = this;
+        geddy.model.User.first(params.id, function (err, user) {
+            if (!user) {
+                e = new Error();
+                e.statusCode = 400;
+                that.error(e);
+            } else {
+                user.password = "";
+                that.respond({
+                    params: params,
+                    user: user.toObj()
+                });
+            }
+        });
+    };
 
-    geddy.model.User.first(params.id, function(err, user) {
-      // Only update password if it's changed
-      var skip = params.password ? [] : ['password'];
+    this.edit = function (req, resp, params) {
+        var that = this;
 
-      user.updateAttributes(params, {skip: skip});
+        geddy.model.User.first(params.id, function (err, user) {
+            var e;
 
-      if (params.password && user.isValid()) {
-        user.password = cryptPass(user.password);
-      }
+            if (!user) {
+                e = new Error();
+                e.statusCode = 400;
+                that.error(e);
+            } else {
+                that.respond({
+                    params: params,
+                    user: user
+                });
+            }
+        });
+    };
 
-      user.save(function(err, data) {
-        if (err) {
-          params.errors = err;
-          self.transfer('edit');
-        } else {
-          self.redirect({controller: self.name});
-        }
-      });
-    });
-  };
+    this.update = function (req, resp, params) {
+        var that = this;
 
-  this.destroy = function (req, resp, params) {
-    var self = this;
+        geddy.model.User.first(params.id, function (err, user) {
+            // Only update password if it"s changed
+            var skip = params.password ? [] : ["password"];
 
-    geddy.model.User.remove(params.id, function(err) {
-      if (err) {
-        params.errors = err;
-        self.transfer('edit');
-      } else {
-        self.redirect({controller: self.name});
-      }
-    });
-  };
+            user.updateAttributes(params, {
+                skip: skip
+            });
 
+            if (params.password && user.isValid()) {
+                user.password = cryptPass(user.password);
+            }
+
+            user.save(function (err, data) {
+                if (err) {
+                    params.errors = err;
+                    that.transfer("edit");
+                } else {
+                    that.redirect({
+                        controller: that.name
+                    });
+                }
+            });
+        });
+    };
+
+    this.destroy = function (req, resp, params) {
+        var that = this;
+
+        geddy.model.User.remove(params.id, function (err) {
+            if (err) {
+                params.errors = err;
+                that.transfer("edit");
+            } else {
+                that.redirect({
+                    controller: that.name
+                });
+            }
+        });
+    };
 };
 
 exports.Users = Users;
