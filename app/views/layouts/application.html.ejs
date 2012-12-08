@@ -16,6 +16,16 @@
 		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	</head>
 	<body>
-    <%- yield(); %>
+    <div class="container">
+      <%= partial("/shared/_navbar") %>
+
+      <div class="row">
+        <%= partial("/shared/_sidebar") %>
+
+        <div class="span9">
+          <%- yield(); %>
+        </div>
+      </div>
+    </div>
 	</body>
 </html>
