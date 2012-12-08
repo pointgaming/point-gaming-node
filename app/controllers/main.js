@@ -7,7 +7,7 @@ var strategies = require('../helpers/passport/strategies'),
 
 var Main = function () {
     this.index = function (req, resp, params) {
-        var self = this,
+        var that = this,
         User = geddy.model.User;
         User.first({
             id: this.session.get('userId')
@@ -19,9 +19,9 @@ var Main = function () {
             };
             if (data) {
                 params.user = data;
-                params.authType = authTypes[self.session.get('authType')].name;
+                params.authType = authTypes[that.session.get('authType')].name;
             }
-            self.respond(params, {
+            that.respond(params, {
                 format: 'html',
                 template: 'app/views/main/index'
             });
