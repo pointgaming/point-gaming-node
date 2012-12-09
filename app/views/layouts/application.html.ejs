@@ -17,7 +17,7 @@
 	</head>
 	<body>
     <div class="container">
-      <%= partial("/shared/_navbar") %>
+      <%= partial("/shared/_navbar", { currentUser: currentUser }) %>
 
       <div class="row">
         <%= partial("/shared/_sidebar") %>

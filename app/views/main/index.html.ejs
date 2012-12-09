@@ -1,5 +1,6 @@
 <!-- Lets talk about geddy -->
 <div class="hero-unit geddy-welcome-box">
+<%= currentUser %>
   <% if (user) { %>
     <h1>
       Hello<% if (user.givenName) { %>, <%= user.givenName %><% } %>
