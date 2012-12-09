@@ -7,20 +7,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- scriptLink('/js/jquery.min.js', {type:'text/javascript'}) %>
     <%- scriptLink('/js/bootstrap.min.js', {type:'text/javascript'}) %>
-    <%- scriptLink('/js/core/core.js', {type: 'text/javascript'}) %>
-    <%- scriptLink('/js/config/init.js', {type: 'text/javascript'}) %>
 
     <%- styleLink('/css/bootstrap.min.css', {rel:'stylesheet'}) %>
     <%- styleLink('/css/application.css', {rel:'stylesheet'}) %>
-    <%- styleLink('/css/bootstrap.responsive.min.css', {rel:'stylesheet'}) %>
+    <%- styleLink('/css/bootstrap-responsive.min.css', {rel:'stylesheet'}) %>
 		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	</head>
 	<body>
     <div class="container">
-      <%= partial("/shared/_navbar", { currentUser: currentUser }) %>
+      <%= partial("/shared/_navbar", { currentUser: currentUser }); %>
 
       <div class="row">
-        <%= partial("/shared/_sidebar") %>
+        <%= partial("/shared/_sidebar", { sidebarItem: sidebarItem }); %>
 
         <div class="span9">
           <%- yield(); %>

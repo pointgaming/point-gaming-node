@@ -29,6 +29,8 @@ var Main = function () {
     };
 
     this.login = function (req, resp, params) {
+        params.token = this.sameOriginToken;
+
         this.respond(params, {
             format: 'html',
             template: 'app/views/main/login'

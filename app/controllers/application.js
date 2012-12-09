@@ -1,8 +1,15 @@
 var Application = function () {
-    this.before(function (next) {
+    var helpers = require("../helpers/application").helpers,
+        _ = require("underscore")._,
+        that = this;
+
+    that.protectFromForgery();
+
+// Set currentUser for views
+
+    that.before(function (next) {
         var userId = this.session.get("userId"),
-            User = geddy.model.User,
-            that = this;
+            User = geddy.model.User;
 
         that.currentUser = null;
 
@@ -15,6 +22,12 @@ var Application = function () {
             next();
         }
     }, { async: true });
+
+// Include helper functions
+
+    _.each(helpers, function (helper, key) {
+        that[key] = helpers[key];
+    });
 };
 
 exports.Application = Application;
