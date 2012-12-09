@@ -18,7 +18,7 @@
       <%= partial("/shared/_navbar", { currentUser: currentUser }); %>
 
       <div class="row">
-        <%= partial("/shared/_sidebar", { sidebarItem: sidebarItem }); %>
+        <%= partial("/shared/_sidebar", { sidebarItem: sidebarItem, currentPath: currentPath }); %>
 
         <div class="span9">
           <%- yield(); %>

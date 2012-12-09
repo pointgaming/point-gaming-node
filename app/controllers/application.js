@@ -5,6 +5,7 @@ var Application = function () {
         that = this;
 
     that.currentUser = null;
+    that.currentPath = null;
     that.requireAuth = passport.requireAuth;
     that.protectFromForgery();
 
@@ -23,6 +24,12 @@ var Application = function () {
             next();
         }
     }, { async: true });
+
+// Set currentPath for views
+
+    that.before(function () {
+        that.currentPath = this.request.req.url;
+    });
 
 // Include helper functions
 

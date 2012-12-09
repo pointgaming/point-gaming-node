@@ -4,18 +4,11 @@
       <li class="nav-header">
         Community
       </li>
-      <%- sidebarItem({ path: newsPath, currentPath: "/news", name: "News" }); %>
-      <%- sidebarItem({ path: gamesPath, currentPath: "/news", name: "Games" }); %>
-      <%- sidebarItem({ path: betsPath, currentPath: "/news", name: "Bets" }); %>
-      <li>
-        <a href="/tournaments">Tournaments</a>
-      </li>
-      <li>
-        <a href="/leagues">Leagues</a>
-      </li>
-      <li>
-        <a href="/streams">Streams</a>
-      </li>
+      <%- sidebarItem({ path: newsPath, currentPath: currentPath, also: ["/"], name: "News" }); %>
+      <%- sidebarItem({ path: gamesPath, currentPath: currentPath, name: "Games" }); %>
+      <%- sidebarItem({ path: betsPath, currentPath: currentPath, name: "Bets" }); %>
+      <%- sidebarItem({ path: tournamentsPath, currentPath: currentPath, name: "Tournaments" }); %>
+      <%- sidebarItem({ path: streamsPath, currentPath: currentPath, name: "Streams" }); %>
       <li>
         <a href="/store">Store</a>
       </li>

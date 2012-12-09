@@ -34,4 +34,5 @@ router.match('/news').to({controller: 'News', action: 'index'});
 router.match('/games').to({controller: 'Games', action: 'index'});
 router.match('/bets').to({controller: 'Bets', action: 'index'});
 router.match('/tournaments').to({controller: 'Tournaments', action: 'index'});
+router.match('/streams').to({controller: 'Streams', action: 'index'});
 exports.router = router;
