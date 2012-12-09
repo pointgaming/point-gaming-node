@@ -1,13 +1,9 @@
-var passport = require("../helpers/passport"),
-    cryptPass = passport.cryptPass,
-    requireAuth = passport.requireAuth;
-
 var Users = function () {
-    this.before(requireAuth, {
+    this.respondsWith = ["html", "json"];
+
+    this.before(this.requireAuth, {
         except: ["add", "create"]
     });
-
-    this.respondsWith = ["html", "json", "xml", "js", "txt"];
 
     this.index = function (req, resp, params) {
         var that = this;

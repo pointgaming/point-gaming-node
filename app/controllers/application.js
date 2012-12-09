@@ -1,8 +1,11 @@
 var Application = function () {
     var helpers = require("../helpers/application").helpers,
         _ = require("underscore")._,
+        passport = require("../helpers/passport"),
         that = this;
 
+    that.currentUser = null;
+    that.requireAuth = passport.requireAuth;
     that.protectFromForgery();
 
 // Set currentUser for views
@@ -10,8 +13,6 @@ var Application = function () {
     that.before(function (next) {
         var userId = this.session.get("userId"),
             User = geddy.model.User;
-
-        that.currentUser = null;
 
         if (userId) {
             User.first({ id: userId }, function (err, _user) {
