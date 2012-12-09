@@ -31,4 +31,5 @@ router.get('/auth/yammer').to('Auth.yammer');
 router.get('/auth/yammer/callback').to('Auth.yammerCallback');
 router.resource('users');
 router.match('/news').to({controller: 'News', action: 'index'});
+router.match('/games').to({controller: 'Games', action: 'index'});
 exports.router = router;

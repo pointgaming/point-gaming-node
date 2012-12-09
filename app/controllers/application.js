@@ -1,5 +1,5 @@
 var Application = function () {
-    this._setCurrentUser = function (next) {
+    this.before(function (next) {
         var userId = this.session.get("userId"),
             User = geddy.model.User,
             that = this;
@@ -8,17 +8,13 @@ var Application = function () {
 
         if (userId) {
             User.first({ id: userId }, function (err, _user) {
-                console.log(this);
-                console.log(err);
                 that.currentUser = _user;
                 next();
             });
         } else {
             next();
         }
-    };
-
-    this.before(this._setCurrentUser, { async: true });
+    }, { async: true });
 };
 
 exports.Application = Application;
