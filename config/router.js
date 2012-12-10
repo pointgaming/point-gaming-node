@@ -32,6 +32,7 @@ router.get("/auth/facebook/callback").to("Auth.facebookCallback");
 router.get("/auth/yammer").to("Auth.yammer");
 router.get("/auth/yammer/callback").to("Auth.yammerCallback");
 router.resource("users");
+router.match("/signup").to("Users.add");
 
 // Sidebar
 
