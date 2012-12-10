@@ -1,13 +1,17 @@
 var Application = function () {
     var helpers = require("../helpers/application").helpers,
         _ = require("underscore")._,
-        passport = require("../helpers/passport"),
         that = this;
+
+    that.protectFromForgery();
+    that.requireAuth = function () {
+        if (!this.session.get("userId")) {
+            this.redirect("/login");
+        }
+    };
 
     that.currentUser = null;
     that.currentPath = null;
-    that.requireAuth = passport.requireAuth;
-    that.protectFromForgery();
 
 // Set currentUser for views
 
@@ -27,9 +31,10 @@ var Application = function () {
 
 // Set currentPath for views
 
-    that.before(function () {
+    that.before(function (next) {
         that.currentPath = this.request.req.url;
-    });
+        next();
+    }, { async: true });
 
 // Include helper functions
 
