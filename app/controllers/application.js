@@ -35,12 +35,6 @@ var Application = function () {
         that.currentPath = this.request.req.url;
         next();
     }, { async: true });
-
-// Include helper functions
-
-    _.each(helpers, function (helper, key) {
-        that[key] = helpers[key];
-    });
 };
 
 exports.Application = Application;
