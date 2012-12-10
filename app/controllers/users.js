@@ -1,3 +1,6 @@
+var passport = require("../helpers/passport"),
+    cryptPass = passport.cryptPass;
+
 var Users = function () {
     this.respondsWith = ["html", "json"];
 
