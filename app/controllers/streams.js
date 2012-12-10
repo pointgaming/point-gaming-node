@@ -8,6 +8,12 @@ var Streams = function () {
             params: params
         });
     };
+
+    this.show = function (req, resp, params) {
+        this.respond({
+            params: params
+        });
+    };
 };
 
 exports.Streams = Streams;
