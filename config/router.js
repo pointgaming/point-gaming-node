@@ -34,12 +34,13 @@ router.get("/auth/yammer/callback").to("Auth.yammerCallback");
 router.resource("users");
 router.match("/signup").to("Users.add");
 
-// Sidebar
+// Navbar
 
 router.match("/news").to({controller: "News", action: "index"});
 router.match("/games").to({controller: "Games", action: "index"});
 router.match("/bets").to({controller: "Bets", action: "index"});
 router.match("/tournaments").to({controller: "Tournaments", action: "index"});
 router.resource("streams");
+router.match('/settings').to({controller: 'Settings', action: 'index'});
 
 exports.router = router;

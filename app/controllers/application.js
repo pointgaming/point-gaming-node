@@ -3,7 +3,7 @@ var Application = function () {
         _ = require("underscore")._,
         that = this;
 
-    that.protectFromForgery();
+    //that.protectFromForgery();
     that.requireAuth = function () {
         if (!this.session.get("userId")) {
             this.redirect("/login");

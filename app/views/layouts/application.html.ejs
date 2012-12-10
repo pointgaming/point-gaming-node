@@ -12,18 +12,20 @@
 
     <%- styleLink('/css/bootstrap.min.css', {rel:'stylesheet'}) %>
     <%- styleLink('/css/bootstrap-responsive.min.css', {rel:'stylesheet'}) %>
-    <%- styleLink('/css/application.css', {rel:'stylesheet'}) %>
+    <%- styleLink('/css/akira.css', {rel:'stylesheet'}) %>
     <%- styleLink('/css/chatbox.css', {rel:'stylesheet'}) %>
+    <%- styleLink('/css/application.css', {rel:'stylesheet'}) %>
+
 		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	</head>
 	<body>
     <div class="container">
-      <%= partial("/shared/_navbar", { currentUser: currentUser }); %>
+      <%= partial("/shared/_navbar", { sidebarItem: sidebarItem, currentPath: currentPath, currentUser: currentUser }); %>
 
       <div class="row">
         <%= partial("/shared/_sidebar", { sidebarItem: sidebarItem, currentPath: currentPath }); %>
 
-        <div class="span9">
+        <div class="span12">
           <%- yield(); %>
         </div>
       </div>
