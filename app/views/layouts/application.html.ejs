@@ -20,11 +20,9 @@
 	</head>
 	<body>
     <div class="container">
-      <%= partial("/shared/_navbar", { sidebarItem: sidebarItem, currentPath: currentPath, currentUser: currentUser }); %>
+      <%= partial("/shared/_navbar", { navItem: navItem, currentPath: currentPath, currentUser: currentUser }); %>
 
       <div class="row">
-        <%= partial("/shared/_sidebar", { sidebarItem: sidebarItem, currentPath: currentPath }); %>
-
         <div class="span12">
           <%- yield(); %>
         </div>

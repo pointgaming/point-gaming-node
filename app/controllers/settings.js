@@ -1,11 +1,21 @@
 var Settings = function () {
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+    this.respondsWith = ["html", "json"];
 
-  this.index = function (req, resp, params) {
-    this.respond({params: params});
-  };
+    this.before(this.requireAuth);
 
+    this.index = function (req, resp, params) {
+        if (!params.page || params.page === "index") {
+            params.page = "subscription";
+        }
+
+        this.respond(params);
+    };
+
+    this.update = function (req, resp, params) {
+        console.log(this.currentUser);
+
+        this.redirect(req.headers.referer || "/");
+    };
 };
 
 exports.Settings = Settings;
-

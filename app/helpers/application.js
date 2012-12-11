@@ -1,6 +1,6 @@
 var _ = require("underscore")._;
 
-exports.sidebarItem = function (options) {
+exports.navItem = function (options) {
     var path = options.path,
         currentPath = options.currentPath,
 

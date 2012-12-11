@@ -1,0 +1,84 @@
+<form action="/settings" method="POST" class="form-horizontal">
+  <fieldset>
+    <legend>Contact Information</legend>
+
+    <div class="control-group">
+      <label for="user_firstName" class="control-label">First Name</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="user_firstName" name="user[firstName]" value="<%= currentUser.firstName %>" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="user_lastName" class="control-label">Last Name</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="user_lastName" name="user[lastName]" value="<%= currentUser.lastName %>" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="user_email" class="control-label">Email</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="user_email" name="user[email]" value="<%= currentUser.email %>" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="user_phone" class="control-label">Phone</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="user_phone" name="user[phone]" value="<%= currentUser.phone %>" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="user_address" class="control-label">Address</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="user_address" name="user[address]" value="<%= currentUser.address %>" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="user_addressLine2" class="control-label">Line 2</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="user_addressLine2" name="user[addressLine2]" value="<%= currentUser.address_line_2 %>" />
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Billing Information</legend>
+
+    <div class="control-group">
+      <label for="card_company" class="control-label">Card Type</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="card_company" name="card[company]" value="" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="card_number" class="control-label">Number</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="card_number" name="card[number]" value="" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="card_expiresOn" class="control-label">Exp. Date</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="card_expiresOn" name="card[expiresOn]" value="" />
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="card_cvc" class="control-label">CVC</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="card_cvc" name="card[cvc]" value="" />
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Save changes</button>
+    <button type="button" class="btn">Cancel</button>
+  </div>
+</form>
