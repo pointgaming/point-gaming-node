@@ -42,6 +42,6 @@ router.match("/bets").to({controller: "Bets", action: "index"});
 router.match("/tournaments").to({controller: "Tournaments", action: "index"});
 router.resource("streams");
 router.get("/settings(/:page)").to({controller: "Settings", action: "index"});
-router.post("/settings").to({ controller: "Settings", action: "update" });
+router.put("/settings").to({ controller: "Settings", action: "update" });
 
 exports.router = router;

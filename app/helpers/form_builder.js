@@ -25,7 +25,7 @@ exports.formFor = function (object, options, builder) {
 
     output += ' action="' + options.action + '"';
 
-    if (!options.method) {
+    if (options.method) {
         options.method = "POST";
     }
 
@@ -42,6 +42,10 @@ exports.formFor = function (object, options, builder) {
 // Close the starting form tag.
 
     output += ">";
+
+// Add _method for PUT or DELETE requests.
+
+    output += '<input type="hidden" name="_method" value="' + options.method + '" />';
 
     helpers.textField = function (attribute) {
         if (!object.hasOwnProperty(attribute)) {
