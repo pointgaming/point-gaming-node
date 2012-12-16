@@ -40,8 +40,11 @@ router.match("/news").to({controller: "News", action: "index"});
 router.match("/games").to({controller: "Games", action: "index"});
 router.match("/bets").to({controller: "Bets", action: "index"});
 router.match("/tournaments").to({controller: "Tournaments", action: "index"});
-router.resource("streams");
+
 router.get("/settings(/:page)").to({controller: "Settings", action: "index"});
 router.put("/settings").to({ controller: "Settings", action: "update" });
+
+router.resource("streams");
+router.resource("lobbies");
 
 exports.router = router;
