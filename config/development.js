@@ -4,7 +4,7 @@ var config = {
     hostname: "localhost",
     port: 9999,
     model: {
-        defaultAdapter: "riak",
+        defaultAdapter: "riak"
     },
     db: {
         riak: {
@@ -14,9 +14,14 @@ var config = {
         }
     },
     sessions: {
-        store: "memcache",
+        store: "redis",
         key: "sid",
-        expiry: 14 * 24 * 60 * 60
+        expiry: 14 * 24 * 60 * 60,
+
+        server: {
+            host: "localhost",
+            port: 6379
+        }
     }
 };
 

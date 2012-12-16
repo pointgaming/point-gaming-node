@@ -5,11 +5,7 @@ var passport = require('passport')
   , failureRedirect = geddy.config.passport.failureRedirect
   , cryptPass;
 
-var SUPPORTED_SERVICES = [
-      'twitter'
-    , 'facebook'
-    , 'yammer'
-    ];
+var SUPPORTED_SERVICES = [];
 
 passport.use(new LocalStrategy(function(username, password, done) {
     geddy.model.User.first({username: username}, function (err, user) {
