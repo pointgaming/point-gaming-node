@@ -43,10 +43,6 @@ exports.formFor = function (object, options, builder) {
 
     output += ">";
 
-// Add _method for PUT or DELETE requests.
-
-    output += '<input type="hidden" name="_method" value="' + options.method + '" />';
-
     helpers.textField = function (attribute) {
         if (!object.hasOwnProperty(attribute)) {
             throw "Attribute " + attribute + " not found.";
