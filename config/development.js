@@ -5,6 +5,8 @@ var config = {
     port: 9999,
     model: {
         defaultAdapter: "riak",
+    },
+    db: {
         riak: {
             protocol: "http",
             host: "localhost",
