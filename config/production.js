@@ -1,6 +1,6 @@
 var config = {
     detailedErrors: false,
-    hostname: null,
+    hostname: "dev.pointgaming.net",
     port: 4000,
     model: {
         defaultAdapter: "riak"
