@@ -1,6 +1,7 @@
 var router = new geddy.RegExpRouter();
 
-router.get("/").to("News.index");
+router.get("/").to("Home.index");
+router.get("/home").to("Home.index");
 
 // Basic routes
 // router.match("/moving/pictures/:id", "GET").to("Moving.pictures");
@@ -22,8 +23,8 @@ router.get("/").to("News.index");
 
 // Authentication
 
-router.get("/login").to("Main.login");
-router.get("/logout").to("Main.logout");
+router.get("/login").to("Home.login");
+router.get("/logout").to("Home.logout");
 router.post("/auth/local").to("Auth.local");
 router.get("/auth/twitter").to("Auth.twitter");
 router.get("/auth/twitter/callback").to("Auth.twitterCallback");
