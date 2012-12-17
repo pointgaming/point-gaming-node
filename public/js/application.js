@@ -1,8 +1,5 @@
-$(function () {
-    $(".autofocus").first().focus();
+var PointGaming;
 
-    $(".tabbable .nav-tabs li a").click(function (e) {
-        e.preventDefault();
-        $(this).tab("show");
-    });
-});
+if (!PointGaming) {
+    PointGaming = {};
+}

@@ -18,6 +18,18 @@
     <%- styleLink("/css/application.css", {rel:"stylesheet"}) %>
 
 		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript">
+      var PointGaming;
+
+      if (!PointGaming) {
+        PointGaming = {};
+      }
+
+      <% if (request.controller && request.controller.session && request.controller.session.id) { %>
+      PointGaming.SessionID = "<%= request.controller.session.id %>";
+      <% } %>
+    </script>
 	</head>
 	<body>
     <div class="container">
