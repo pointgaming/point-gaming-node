@@ -8,5 +8,13 @@
     </tr>
   </thead>
   <tbody>
+    <% for (var post in news) { %>
+      <tr>
+        <td><%= news[post].title %></td>
+        <td><%- news[post].content %></td>
+      </tr>
+    <% } %>
   </tbody>
 </table>
+
+<%- linkTo("Add Post", addNewsPath, { class: "btn btn-primary" }); %>

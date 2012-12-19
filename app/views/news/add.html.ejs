@@ -1,0 +1,23 @@
+<h1>New Post</h1>
+
+<form action="/news" method="POST">
+  <div class="control-group">
+    <label for="news_title" class="control-label">Title</label>
+
+    <div class="controls">
+      <input type="text" style="width:500px" id="news_title" name="news[title]" placeholder="Title here..." />
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label for="news_content" class="control-label">Content</label>
+
+    <div class="controls">
+      <textarea rows="8" style="width:500px" id="news_content" name="news[content]"></textarea>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <input type="submit" class="btn btn-primary" />
+  </div>
+</form>

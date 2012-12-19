@@ -1,4 +1,23 @@
 (function () {
+var News = function () {
+    this.defineProperties({
+        title: {
+            type: "string",
+            required: true
+        },
+        content: {
+            type: "string"
+        }
+    });
+
+    this.validatesPresent("title");
+    this.validatesPresent("content");
+};
+
+News = geddy.model.register("News", News);
+}());
+
+(function () {
 var Passport = function () {
     this.property("authType", "string");
     this.property("key", "string");

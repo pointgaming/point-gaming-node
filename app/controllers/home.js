@@ -7,9 +7,15 @@ var strategies = require("../helpers/passport/strategies"),
 
 var Home = function () {
     this.index = function (req, resp, params) {
-        this.respond(params, {
-            format: "html",
-            template: "app/views/home/index"
+        var that = this;
+
+        geddy.model.News.all(function (err, news) {
+            params.news = news;
+
+            that.respond(params, {
+                format: "html",
+                template: "app/views/home/index"
+            });
         });
     };
 
