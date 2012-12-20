@@ -48,4 +48,7 @@ router.resource("news");
 router.resource("streams");
 router.resource("lobbies");
 
+// Game room
+router.match("/lobbies/1/room").to({controller: "Rooms", action: "show"});
+
 exports.router = router;
