@@ -12,8 +12,6 @@ var Settings = function () {
     };
 
     this.update = function (req, resp, params) {
-        console.log(this.currentUser);
-
         this.redirect(req.headers.referer || "/");
     };
 };

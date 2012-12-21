@@ -59,8 +59,6 @@ exports.formFor = function (object, options, builder) {
     builder.call(this, helpers);
 
     output += "</form>";
-    console.log(this);
-    console.log(builder);
 
     return output;
 };
