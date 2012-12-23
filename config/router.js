@@ -38,8 +38,11 @@ router.match("/signup").to("Users.add");
 // Navbar
 
 router.match("/games").to({controller: "Games", action: "index"});
-router.match('/leagues').to({controller: 'Leagues', action: 'index'});
+router.match("/leagues").to({controller: "Leagues", action: "index"});
 router.match("/tournaments").to({controller: "Tournaments", action: "index"});
+router.match("/store").to({controller: "Store", action: "index"});
+router.match("/forums").to({controller: "Forums", action: "index"});
+router.match("/faq").to({controller: "Faq", action: "index"});
 
 router.get("/settings(/:page)").to({controller: "Settings", action: "index"});
 router.put("/settings").to({ controller: "Settings", action: "update" });
