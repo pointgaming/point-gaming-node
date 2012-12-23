@@ -38,7 +38,7 @@ router.match("/signup").to("Users.add");
 // Navbar
 
 router.match("/games").to({controller: "Games", action: "index"});
-router.match("/bets").to({controller: "Bets", action: "index"});
+router.match('/leagues').to({controller: 'Leagues', action: 'index'});
 router.match("/tournaments").to({controller: "Tournaments", action: "index"});
 
 router.get("/settings(/:page)").to({controller: "Settings", action: "index"});
