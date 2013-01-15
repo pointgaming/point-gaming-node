@@ -20,16 +20,16 @@ var Friends = function () {
   this.create = function (req, resp, params) {
     var self = this;
 
-    async.waterfall([
+    async.auto({
       // @TODO move this check to some form model validation?
-      function(callback) {
+      validateSelf: function(callback) {
         if (params.username === self.currentUser.username) {
             callback({username: 'You cannot add yourself as a friend.'});
         } else {
             callback(null);
         }
       },
-      function(callback) {
+      getFriendUserId: ["validateSelf", function(callback) {
         geddy.model.User.first({username: params.username}, function(err, data) {
           if (typeof(data) === 'undefined') {
             callback({username: 'That user does not exist.'});
@@ -37,50 +37,51 @@ var Friends = function () {
             callback(null, data.id);
           }
         });
-      },
-      // verify that currentUser -> specifiedUser friend relation doesn't already exist
-      function(friendUserId, callback) {
-        geddy.model.Friend.first({userId: self.currentUser.id, friendUserId: friendUserId}, function(err, data) {
+      }],
+      // check if currentUser -> specifiedUser friend relation already exist
+      firstRelationExists: ["getFriendUserId", function(callback, results) {
+        geddy.model.Friend.first({userId: self.currentUser.id, friendUserId: results.getFriendUserId}, function(err, data) {
           if (typeof(data) !== 'undefined') {
             callback({username: 'You are already friends with that user.'});
           } else {
-            callback(null, friendUserId);
+            callback(null, false);
           }
         });
-      },
+      }],
       // add currentUser -> specifiedUser friend relation
-      function(friendUserId, callback) {
+      createFirstRelation: ["firstRelationExists", function(callback, results) {
         var friend = geddy.model.Friend.create({
           userId: self.currentUser.id,
-          friendUserId: friendUserId
+          friendUserId: results.getFriendUserId
         });
 
         friend.save(function(err, data) {
-          callback(null, friendUserId);
+          callback(null);
         });
-      },
-      // verify that specifiedUser -> currentUser friend relation doesn't already exist
-      function(friendUserId, callback) {
-        geddy.model.Friend.first({userId: friendUserId, friendUserId: self.currentUser.id}, function(err, data) {
-          if (typeof(data) !== 'undefined') {
-            callback({username: 'That user is already friends with you.'});
-          } else {
-            callback(null, friendUserId);
-          }
+      }],
+      // check if specifiedUser -> currentUser friend relation already exist
+      secondRelationExists: ["firstRelationExists", function(callback, results) {
+        geddy.model.Friend.first({userId: results.getFriendUserId, friendUserId: self.currentUser.id}, function(err, data) {
+          console.log('Found the second friend relation: ' + (typeof(data) !== 'undefined'));
+          callback(null, typeof(data) !== 'undefined');
         });
-      },
+      }],
       // add specifiedUser -> currentUser friend relation
-      function(friendUserId, callback) {
-        var friend = geddy.model.Friend.create({
-          userId: friendUserId,
-          friendUserId: self.currentUser.id
-        });
+      createSecondRelation: ["secondRelationExists", function(callback, results) {
+        if (results.secondRelationExists) {
+          callback(null);
+        } else {
+          var friend = geddy.model.Friend.create({
+            userId: results.getFriendUserId,
+            friendUserId: self.currentUser.id
+          });
 
-        friend.save(function(err, data) {
-          callback(null, 'done');
-        });
-      }
-    ], function(err, results){
+          friend.save(function(err, data) {
+            callback(null, 'done');
+          });
+        }
+      }]
+    }, function(err, results){
       if (err) {
         params.errors = err;
         self.transfer('add');
