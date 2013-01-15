@@ -56,7 +56,11 @@ var Friends = function () {
         });
 
         friend.save(function(err, data) {
-          callback(null);
+          if (err) {
+            callback(err);
+          } else {
+            callback(null, data.id);
+          }
         });
       }],
       // check if specifiedUser -> currentUser friend relation already exist
@@ -77,7 +81,11 @@ var Friends = function () {
           });
 
           friend.save(function(err, data) {
-            callback(null, 'done');
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, data.id);
+            }
           });
         }
       }]
