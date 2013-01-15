@@ -50,6 +50,7 @@ router.put("/settings").to({ controller: "Settings", action: "update" });
 router.resource("news");
 router.resource("streams");
 router.resource("lobbies");
+router.resource("friends");
 
 // Game room
 router.match("/lobbies/1/room").to({controller: "Rooms", action: "show"});

@@ -9,6 +9,7 @@ var User = function () {
     this.validatesLength("password", {min: 8});
     this.validatesConfirmed("password", "confirmPassword");
 
+    this.hasMany("Friends");
     this.hasMany("Passports");
 };
 
