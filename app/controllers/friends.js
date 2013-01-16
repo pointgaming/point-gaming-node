@@ -9,7 +9,17 @@ var Friends = function () {
     var self = this;
 
     geddy.model.Friend.all({userId: self.currentUser.id}, function(err, friends) {
-      self.respond({params: params, friends: friends});
+      async.map(friends, function(item, callback){
+        geddy.model.User.first({id: item.friendUserId}, function(err, data){
+          if (err) {
+            callback(err);
+          } else {
+            callback(null, data);
+          }
+        });
+      }, function(err, friends){
+        self.respond({params: params, friends: friends});
+      });
     });
   };
 
