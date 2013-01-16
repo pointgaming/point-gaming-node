@@ -66,7 +66,6 @@ var Friends = function () {
       // check if specifiedUser -> currentUser friend relation already exist
       secondRelationExists: ["firstRelationExists", function(callback, results) {
         geddy.model.Friend.first({userId: results.getFriendUserId, friendUserId: self.currentUser.id}, function(err, data) {
-          console.log('Found the second friend relation: ' + (typeof(data) !== 'undefined'));
           callback(null, typeof(data) !== 'undefined');
         });
       }],
@@ -102,10 +101,65 @@ var Friends = function () {
   this.destroy = function (req, resp, params) {
     var self = this;
 
-    geddy.model.Friend.remove(params.id, function(err) {
+    async.auto({
+      // find User.id by username
+      getFriendUserId: function(callback) {
+        geddy.model.User.first({username: params.id}, function(err, data) {
+          if (typeof(data) === 'undefined') {
+            callback({username: 'That user does not exist.'});
+          } else {
+            callback(null, data.id);
+          }
+        });
+      },
+      // lookup the first friend relation
+      firstFriendRelationId: ["getFriendUserId", function(callback, results) {
+        geddy.model.Friend.first({userId: self.currentUser.id, friendUserId: results.getFriendUserId}, function(err, data) {
+          if (typeof(data) === 'undefined') {
+            callback({username: 'You are not friends with that user.'});
+          } else {
+            callback(null, data.id);
+          }
+        });
+      }],
+      // lookup the second friend relation
+      secondFriendRelationId: ["getFriendUserId", function(callback, results) {
+        geddy.model.Friend.first({userId: results.getFriendUserId, friendUserId: self.currentUser.id}, function(err, data) {
+          if (typeof(data) !== 'undefined') {
+            callback(null, data.id);
+          } else {
+            callback(null);
+          }
+        });
+      }],
+      // delete the first relation
+      deleteFirstFriendRelation: ["firstFriendRelationId", function(callback, results) {
+        geddy.model.Friend.remove(results.firstFriendRelationId, function(err) {
+          if (err) {
+            callback(err);
+          } else {
+            callback(null);
+          }
+        });
+      }],
+      // delete the second relation, if there was one
+      deleteSecondFriendRelation: ["firstFriendRelationId", "secondFriendRelationId", function(callback, results) {
+        if (typeof(results.secondFriendRelationId) !== 'undefined') {
+          geddy.model.Friend.remove(results.secondFriendRelationId, function(err) {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null);
+            }
+          });
+        } else {
+          callback(null);
+        }
+      }]
+    }, function(err, results){
       if (err) {
         params.errors = err;
-        self.transfer('edit');
+        self.transfer('add');
       } else {
         self.redirect({controller: self.name});
       }
