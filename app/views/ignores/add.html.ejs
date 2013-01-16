@@ -1,0 +1,22 @@
+<div class="hero-unit">
+  <form id="ignore-form" class="form-horizontal" action="/ignores" method="POST">
+    <fieldset>
+      <legend>Add User to Ignore List</legend>
+      <% if(params.errors) { %>
+      <div class="control-group">
+        <ul>
+        <% for(var err in params.errors) { %>
+          <li><%= params.errors[err]; %></li>
+        <% } %>
+        </ul>
+      </div>
+      <% } %>
+
+      <%- partial('form', {ignore: params}) %>
+
+      <div class="form-actions">
+        <%- contentTag('input', 'Add', {type: 'submit', class: 'btn btn-primary'}) %>
+      </div>
+    </fieldset>
+  </form>
+</div>

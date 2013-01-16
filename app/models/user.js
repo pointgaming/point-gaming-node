@@ -12,6 +12,7 @@ var User = function () {
     this.validatesConfirmed("password", "confirmPassword");
 
     this.hasMany("Friends");
+    this.hasMany("Ignores");
     this.hasMany("Passports");
 
     this.getFriendUsers = function(callback){

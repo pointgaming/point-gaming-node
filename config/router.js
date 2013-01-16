@@ -51,6 +51,7 @@ router.resource("news");
 router.resource("streams");
 router.resource("lobbies");
 router.resource("friends");
+router.resource("ignores");
 
 // Game room
 router.match("/lobbies/1/room").to({controller: "Rooms", action: "show"});
