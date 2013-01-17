@@ -127,6 +127,44 @@ var actions = new (function () {
     })(req, resp, handler);
   };
 
+  this.api = function (req, resp, params) {
+    var self = this
+      , handler = function (badCredsError, user, noCredsError) {
+          var response = {};
+          if (badCredsError || noCredsError) {
+            response.errors = badCredsError || noCredsError;
+            self.respond(response, {format: "json"});
+          } else {
+            response.success = true;
+
+            // create a new authToken for this user and return it
+            var authToken = geddy.model.Authtoken.create({});
+            authToken.setUser(user);
+            authToken.save(function(err, data) {
+              if (err) {
+                response.errors = err;
+              } else {
+                response.authToken = data.id;
+
+                if (geddy.emitter) {
+                  geddy.emitter.emit('user_logged_in', user);
+                }
+              }
+
+              self.respond(response, {format: "json"});
+            });
+          }
+        };
+    // FIXME: Passport wants a request body or query
+    req.body = {
+      username: params.username
+    , password: params.password
+    };
+    passport.authenticate('local', function () {
+      handler.apply(null, arguments);
+    })(req, resp, handler);
+  };
+
   SUPPORTED_SERVICES.forEach(function (item) {
     self[item] = _createInit(item);
     self[item + 'Callback'] = _createCallback(item);

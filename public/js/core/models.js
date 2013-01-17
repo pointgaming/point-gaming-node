@@ -92,6 +92,14 @@ Ignore = geddy.model.register('Ignore', Ignore);
 }());
 
 (function () {
+var Authtoken = function () {
+    this.belongsTo("User");
+};
+
+Authtoken = geddy.model.register("Authtoken", Authtoken);
+}());
+
+(function () {
 var Friend = function () {
   this.property("userId", "string");
   this.property("friendUserId", "string");
