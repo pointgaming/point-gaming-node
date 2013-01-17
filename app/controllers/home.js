@@ -31,6 +31,11 @@ var Home = function () {
 
         this.session.unset("userId");
         this.session.unset("authType");
+
+        if (geddy.emitter) {
+          geddy.emitter.emit('user_logged_out', this.currentUser);
+        }
+
         this.currentUser = null;
 
         this.session.close(function(){

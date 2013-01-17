@@ -1,6 +1,11 @@
 var client = require("redis").createClient(),
     User = geddy.model.User,
-    S = require("string");
+    S = require("string"),
+    async = require('async'),
+    MessageQueue = require('../lib/messagequeue'),
+    EventEmitter = require('events').EventEmitter;
+
+geddy.emitter = new EventEmitter();
 
 geddy.io.sockets.on("connection", function (socket) {
     socket.on("message", function (message) {
@@ -24,3 +29,19 @@ geddy.io.sockets.on("connection", function (socket) {
         });
     });
 });
+
+var _notifyUserFriends = function(action){
+  return function(user){
+    user.getFriendUsers(function(err, friends){
+      if (friends && friends.length) {
+        var message = {username: user.username, action: action};
+        async.forEach(friends, function(item, callback){
+          MessageQueue.sendMessageToUser(item.username, JSON.stringify(message), callback);
+        }, function(err){});
+      }
+    });
+  };
+};
+
+geddy.emitter.on('user_logged_in', _notifyUserFriends('logged_in'));
+geddy.emitter.on('user_logged_out', _notifyUserFriends('logged_out'));

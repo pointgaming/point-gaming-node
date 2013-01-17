@@ -109,6 +109,11 @@ var actions = new (function () {
           else {
             self.session.set('userId', user.id);
             self.session.set('authType', 'local');
+
+            if (geddy.emitter) {
+              geddy.emitter.emit('user_logged_in', user);
+            }
+
             self.redirect(successRedirect);
           }
         };

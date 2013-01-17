@@ -1,3 +1,5 @@
+var async = require('async');
+
 var User = function () {
     this.property("username", "string", {required: true});
     this.property("password", "string", {required: true});
@@ -11,6 +13,20 @@ var User = function () {
 
     this.hasMany("Friends");
     this.hasMany("Passports");
+
+    this.getFriendUsers = function(callback){
+      var _iterGetFriendUser = function(err, friends){
+        if (friends) {
+          async.map(friends, function(item, loopCallback){
+            item.getFriendUser(loopCallback);
+          }, callback);
+        } else {
+          callback(err, friends);
+        }
+      };
+
+      geddy.model.Friend.all({userId: this.id}, _iterGetFriendUser);
+    };
 };
 
 User = geddy.model.register("User", User);
