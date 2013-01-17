@@ -8,7 +8,9 @@
     "underscore": "1.4.x",
     "socket.io": "0.9.x",
     "redis": "0.8.x",
-    "string": "1.1.x"
+    "string": "1.1.x",
+    "async": "0.1.22",
+    "amqp": "0.1.4"
   },
   "engines": {
     "node": "0.8.x",
