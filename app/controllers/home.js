@@ -27,11 +27,18 @@ var Home = function () {
     };
 
     this.logout = function (req, resp, params) {
+        var self = this;
+
         this.session.unset("userId");
         this.session.unset("authType");
-        this.respond(params, {
-            format: "html",
-            template: "app/views/home/logout"
+        this.currentUser = null;
+
+        this.session.close(function(){
+            self.session.reset();
+            self.respond(params, {
+                format: "html",
+                template: "app/views/home/logout"
+            });
         });
     };
 };
