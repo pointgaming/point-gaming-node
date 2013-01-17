@@ -137,14 +137,14 @@ var actions = new (function () {
           } else {
             response.success = true;
 
-            // create a new authToken for this user and return it
-            var authToken = geddy.model.Authtoken.create({});
-            authToken.setUser(user);
-            authToken.save(function(err, data) {
+            // create a new accessToken for this user and return it
+            var accessToken = geddy.model.Accesstoken.create({});
+            accessToken.setUser(user);
+            accessToken.save(function(err, data) {
               if (err) {
                 response.errors = err;
               } else {
-                response.authToken = data.id;
+                response.access_token = data.id;
 
                 if (geddy.emitter) {
                   geddy.emitter.emit('user_logged_in', user);

@@ -1,4 +1,12 @@
 (function () {
+var Accesstoken = function () {
+    this.belongsTo("User");
+};
+
+Accesstoken = geddy.model.register("Accesstoken", Accesstoken);
+}());
+
+(function () {
 var Passport = function () {
     this.property("authType", "string");
     this.property("key", "string");
@@ -89,14 +97,6 @@ var Ignore = function () {
 };
 
 Ignore = geddy.model.register('Ignore', Ignore);
-}());
-
-(function () {
-var Authtoken = function () {
-    this.belongsTo("User");
-};
-
-Authtoken = geddy.model.register("Authtoken", Authtoken);
 }());
 
 (function () {

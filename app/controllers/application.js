@@ -2,10 +2,10 @@ var passport = require('passport')
   , BearerStrategy = require('passport-http-bearer').Strategy;
 
 passport.use(new BearerStrategy(function(token, done) {
-    geddy.model.Authtoken.first({id: token}, function(err, authToken) {
+    geddy.model.Accesstoken.first({id: token}, function(err, accessToken) {
         if (err) { return done(err); }
-        if (!authToken) { return done(null, false); }
-        authToken.getUser(function(err, user) {
+        if (!accessToken) { return done(null, false); }
+        accessToken.getUser(function(err, user) {
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
             return done(null, user);
