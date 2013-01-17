@@ -6,6 +6,8 @@ var strategies = require("../helpers/passport/strategies"),
     });
 
 var Home = function () {
+    this.respondsWith = ["html", "json"];
+
     this.index = function (req, resp, params) {
         var that = this;
 
@@ -28,23 +30,32 @@ var Home = function () {
 
     this.logout = function (req, resp, params) {
         var self = this;
+        var callback = function(err){
+            if (geddy.emitter && self.currentUser) {
+                geddy.emitter.emit('user_logged_out', self.currentUser);
+            }
 
-        this.session.unset("userId");
-        this.session.unset("authType");
+            self.currentUser = null;
 
-        if (geddy.emitter) {
-          geddy.emitter.emit('user_logged_out', this.currentUser);
-        }
+            if (params.format !== 'html') {
+              params = {success: true};
+            }
 
-        this.currentUser = null;
-
-        this.session.close(function(){
-            self.session.reset();
-            self.respond(params, {
-                format: "html",
-                template: "app/views/home/logout"
+            self.respond({params: params}, {
+              template: "app/views/home/logout"
             });
-        });
+        };
+
+        if (req.query && 'access_token' in req.query) {
+            geddy.model.Accesstoken.remove(req.query['access_token'], callback);
+        } else {
+            this.session.unset("userId");
+            this.session.unset("authType");
+            this.session.close(function() {
+                self.session.reset();
+                callback();
+            });
+        }
     };
 };
 

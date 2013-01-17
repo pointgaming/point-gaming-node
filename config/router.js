@@ -24,7 +24,7 @@ router.get("/home").to("Home.index");
 // Authentication
 
 router.get("/login").to("Home.login");
-router.get("/logout").to("Home.logout");
+router.get("/logout(.:format)").to("Home.logout");
 router.post("/auth/local").to("Auth.local");
 router.post("/auth/api(.:format)").to("Auth.api");
 router.get("/auth/twitter").to("Auth.twitter");
