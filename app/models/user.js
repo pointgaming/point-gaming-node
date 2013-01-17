@@ -15,6 +15,20 @@ var User = function () {
     this.hasMany("Ignores");
     this.hasMany("Passports");
 
+    this.getIgnoredUsers = function(callback){
+      var _iterGetIgnoredUser = function(err, ignores){
+        if (ignores) {
+          async.map(ignores, function(item, loopCallback){
+            item.getIgnoredUser(loopCallback);
+          }, callback);
+        } else {
+          callback(err, ignores);
+        }
+      };
+
+      geddy.model.Ignore.all({userId: this.id}, _iterGetIgnoredUser);
+    };
+
     this.getFriendUsers = function(callback){
       var _iterGetFriendUser = function(err, friends){
         if (friends) {

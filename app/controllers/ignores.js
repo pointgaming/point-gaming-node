@@ -8,18 +8,8 @@ var Ignores = function () {
   this.index = function (req, resp, params) {
     var self = this;
 
-    geddy.model.Ignore.all({userId: self.currentUser.id}, function(err, ignores) {
-      async.map(ignores || [], function(item, callback){
-        geddy.model.User.first({id: item.ignoreUserId}, function(err, data){
-          if (err) {
-            callback(err);
-          } else {
-            callback(null, data);
-          }
-        });
-      }, function(err, ignores){
-        self.respond({params: params, ignores: ignores});
-      });
+    self.currentUser.getIgnoredUsers(function(err, ignores){
+      self.respond({params: params, ignores: ignores});
     });
   };
 
