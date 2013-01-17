@@ -9,12 +9,23 @@ var Friends = function () {
     var self = this;
 
     self.currentUser.getFriendUsers(function(err, friends){
-      self.respond({params: params, friends: friends});
+      if (params.format !== 'html') {
+        self.respond({friends: friends});
+      } else {
+        self.respond({params: params, friends: friends});
+      }
     });
   };
 
   this.add = function (req, resp, params) {
-    this.respond({params: params});
+    if (params.format !== 'html') {
+        var newParams = {};
+        if ('success' in params) newParams.success = params.success;
+        if ('errors' in params) newParams.errors = params.errors;
+        this.respond(newParams);
+    } else {
+        this.respond({params: params});
+    }
   };
 
   this.create = function (req, resp, params) {
@@ -30,17 +41,17 @@ var Friends = function () {
       },
       getFriendUserId: ["validateSelf", function(callback) {
         geddy.model.User.first({username: params.username}, function(err, data) {
-          if (typeof(data) === 'undefined') {
-            callback({username: 'That user does not exist.'});
-          } else {
+          if (data) {
             callback(null, data.id);
+          } else {
+            callback({username: 'That user does not exist.'});
           }
         });
       }],
       // check if currentUser -> specifiedUser friend relation already exist
       firstRelationExists: ["getFriendUserId", function(callback, results) {
         geddy.model.Friend.first({userId: self.currentUser.id, friendUserId: results.getFriendUserId}, function(err, data) {
-          if (typeof(data) !== 'undefined') {
+          if (data) {
             callback({username: 'You are already friends with that user.'});
           } else {
             callback(null, false);
@@ -65,7 +76,7 @@ var Friends = function () {
       // check if specifiedUser -> currentUser friend relation already exist
       secondRelationExists: ["firstRelationExists", function(callback, results) {
         geddy.model.Friend.first({userId: results.getFriendUserId, friendUserId: self.currentUser.id}, function(err, data) {
-          callback(null, typeof(data) !== 'undefined');
+          callback(null, (data ? true : false));
         });
       }],
       // add specifiedUser -> currentUser friend relation
@@ -92,7 +103,12 @@ var Friends = function () {
         params.errors = err;
         self.transfer('add');
       } else {
-        self.redirect({controller: self.name});
+        if (params.format !== 'html') {
+          params.success = true;
+          self.transfer('add');
+        } else {
+          self.redirect({controller: self.name});
+        }
       }
     });
   };
@@ -104,27 +120,27 @@ var Friends = function () {
       // find User.id by username
       getFriendUserId: function(callback) {
         geddy.model.User.first({username: params.id}, function(err, data) {
-          if (typeof(data) === 'undefined') {
-            callback({username: 'That user does not exist.'});
-          } else {
+          if (data) {
             callback(null, data.id);
+          } else {
+            callback({username: 'That user does not exist.'});
           }
         });
       },
       // lookup the first friend relation
       firstFriendRelationId: ["getFriendUserId", function(callback, results) {
         geddy.model.Friend.first({userId: self.currentUser.id, friendUserId: results.getFriendUserId}, function(err, data) {
-          if (typeof(data) === 'undefined') {
-            callback({username: 'You are not friends with that user.'});
-          } else {
+          if (data) {
             callback(null, data.id);
+          } else {
+            callback({username: 'You are not friends with that user.'});
           }
         });
       }],
       // lookup the second friend relation
       secondFriendRelationId: ["getFriendUserId", function(callback, results) {
         geddy.model.Friend.first({userId: results.getFriendUserId, friendUserId: self.currentUser.id}, function(err, data) {
-          if (typeof(data) !== 'undefined') {
+          if (data) {
             callback(null, data.id);
           } else {
             callback(null);
@@ -143,7 +159,7 @@ var Friends = function () {
       }],
       // delete the second relation, if there was one
       deleteSecondFriendRelation: ["firstFriendRelationId", "secondFriendRelationId", function(callback, results) {
-        if (typeof(results.secondFriendRelationId) !== 'undefined') {
+        if (results.secondFriendRelationId) {
           geddy.model.Friend.remove(results.secondFriendRelationId, function(err) {
             if (err) {
               callback(err);
@@ -160,7 +176,12 @@ var Friends = function () {
         params.errors = err;
         self.transfer('add');
       } else {
-        self.redirect({controller: self.name});
+        if (params.format !== 'html') {
+          params.success = true;
+          self.transfer('add');
+        } else {
+          self.redirect({controller: self.name});
+        }
       }
     });
   };

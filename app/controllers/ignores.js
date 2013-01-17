@@ -9,12 +9,23 @@ var Ignores = function () {
     var self = this;
 
     self.currentUser.getIgnoredUsers(function(err, ignores){
-      self.respond({params: params, ignores: ignores});
+      if (params.format !== 'html') {
+        self.respond({ignores: ignores});
+      } else {
+        self.respond({params: params, ignores: ignores});
+      }
     });
   };
 
   this.add = function (req, resp, params) {
-    this.respond({params: params});
+    if (params.format !== 'html') {
+      var newParams = {};
+      if ('success' in params) newParams.success = params.success;
+      if ('errors' in params) newParams.errors = params.errors;
+      this.respond(newParams);
+    } else {
+      this.respond({params: params});
+    }
   };
 
   this.create = function (req, resp, params) {
@@ -68,7 +79,12 @@ var Ignores = function () {
         params.errors = err;
         self.transfer('add');
       } else {
-        self.redirect({controller: self.name});
+        if (params.format === 'html') {
+          self.redirect({controller: self.name});
+        } else {
+          params.success = true;
+          self.transfer('add');
+        }
       }
     });
   };
@@ -112,7 +128,13 @@ var Ignores = function () {
         params.errors = err;
         self.transfer('add');
       } else {
-        self.redirect({controller: self.name});
+        if (params.format === 'html') {
+          self.redirect({controller: self.name});
+        } else {
+          params.success = true;
+          self.transfer('add');
+        }
+
       }
     });
   };
