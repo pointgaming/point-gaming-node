@@ -11,7 +11,8 @@
     "redis": "0.8.x",
     "string": "1.1.x",
     "async": "0.1.22",
-    "amqp": "0.1.4"
+    "amqp": "0.1.4",
+    "restler": "2.0.1"
   },
   "engines": {
     "node": "0.8.x",
