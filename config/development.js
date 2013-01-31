@@ -2,6 +2,7 @@ var config = {
     detailedErrors: true,
     debug: true,
     hostname: "localhost",
+    api_url: "http://localhost:3000/",
     port: 9999,
     model: {
         defaultAdapter: "riak"
@@ -12,6 +13,10 @@ var config = {
             host: "localhost",
             port: 8098
         }
+    },
+    redis: {
+        host: "localhost",
+        port: 6379
     },
     sessions: {
         store: "redis",

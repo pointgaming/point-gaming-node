@@ -6,7 +6,7 @@ var User = geddy.model.User,
 
 geddy.emitter = new EventEmitter();
 
-var socketManager = new connection_manager();
+var socketManager = new connection_manager(geddy.config);
 
 geddy.io.sockets.on("connection", function (socket) {
   socketManager.handleNewConnection(socket);
