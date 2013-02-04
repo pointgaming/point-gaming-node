@@ -1,7 +1,7 @@
 var argv = require('optimist').string('e').argv,
     sio = require('socket.io'),
     io,
-    connection_manager = require('lib/pg-chat/manager'),
+    connection_manager = require('./lib/pg-chat/manager'),
     socketManager;
 
 if (typeof(argv.e) !== 'undefined') {
