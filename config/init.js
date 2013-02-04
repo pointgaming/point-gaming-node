@@ -1,5 +1,5 @@
 // Add uncaught-exception handler in prod-like environments
-if (geddy.config.environment !== "development") {
+if (process.env.NODE_ENV !== "development") {
     process.addListener("uncaughtException", function (err) {
         var msg = err.message;
         if (err.stack) {
@@ -8,6 +8,6 @@ if (geddy.config.environment !== "development") {
         if (!msg) {
             msg = JSON.stringify(err);
         }
-        geddy.log.error(msg);
+        console.log('Error: ' + msg);
     });
 }
