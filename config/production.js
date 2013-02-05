@@ -1,7 +1,7 @@
 var config = {
     debug: false,
     hostname: "dev.pointgaming.net",
-    api_url: "http://dev.pointgaming.net:3000/",
+    api_url: "http://dev.pointgaming.net/",
     port: 4000,
     redis: {
         host: "localhost",
