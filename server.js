@@ -5,6 +5,8 @@ var argv = require('optimist').string('e').argv,
     connection_manager = require('./lib/pg-chat/manager'),
     socketManager;
 
+require('./config/init');
+
 if (typeof(argv.e) !== 'undefined') {
     process.env.NODE_ENV = argv.e;
 } else if (typeof(process.env.NODE_ENV) === 'undefined') {
