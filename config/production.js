@@ -6,6 +6,11 @@ var config = {
     redis: {
         host: "localhost",
         port: 6379
+    },
+    ssl: {
+        key: '/opt/nginx/keys/server.key',
+        cert: '/opt/nginx/keys/server.csr',
+        ca: '/etc/ssl/certs/star_pointgaming_com.pem'
     }
 };
 
