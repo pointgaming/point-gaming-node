@@ -9,8 +9,7 @@ var config = {
     },
     ssl: {
         key: '/opt/nginx/keys/server.key',
-        cert: '/opt/nginx/keys/server.csr',
-        ca: '/etc/ssl/certs/star_pointgaming_com.pem'
+        cert: '/etc/ssl/certs/star_pointgaming_com.pem'
     }
 };
 
