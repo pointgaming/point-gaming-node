@@ -3,30 +3,34 @@ var argv = require('optimist').string('e').argv,
     sio = require('socket.io'),
     io,
     connection_manager = require('./lib/pg-chat/manager'),
-    socketManager;
+    PointGaming = global.PointGaming || {};
 
-require('./config/init');
+// setup the global variable
+global.PointGaming = PointGaming;
 
+// setup the environment
 if (typeof(argv.e) !== 'undefined') {
     process.env.NODE_ENV = argv.e;
 } else if (typeof(process.env.NODE_ENV) === 'undefined') {
     process.env.NODE_ENV = 'development';
 }
 
-var config = require('config');
+// run the initialization script
+require('./config/init');
 
-socketManager = new connection_manager(config);
+// load the config
+PointGaming.config = require('config');
 
 var options = {
-  key: fs.readFileSync(config.ssl.key),
-  cert: fs.readFileSync(config.ssl.cert)
+  key: fs.readFileSync(PointGaming.config.ssl.key),
+  cert: fs.readFileSync(PointGaming.config.ssl.cert)
 };
 
 var app = require('https').createServer(options, function(req, res){
   res.writeHead(200);
   res.end('Welcome to socket.io');
 });
-app.listen(config.port);
+app.listen(PointGaming.config.port);
 
 io = sio.listen(app, function() {
     console.log('Socket.io listening');
@@ -39,6 +43,11 @@ io.configure(function (){
     io.enable('broser client gzip');
 });
 
+PointGaming.socketManager = new connection_manager(PointGaming.config);
+
 io.sockets.on('connection', function(socket){
-    socketManager.handleNewConnection(socket);
+    PointGaming.socketManager.handleNewConnection(socket);
 });
+
+// run the initializers
+require('./config/initializers/');
