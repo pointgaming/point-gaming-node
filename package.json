@@ -8,7 +8,8 @@
     "optimist": "0.3.x",
     "config": "0.4.x",
     "restler": "2.0.1",
-    "async": "0.2.5"
+    "async": "0.2.5",
+    "string": "1.2.1"
   },
   "engines": {
     "node": "0.8.x",
