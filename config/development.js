@@ -2,6 +2,7 @@ var config = {
     debug: true,
     hostname: "localhost",
     api_url: "http://localhost:3000/",
+    api_token: "M9812Y125T-V234BCOV6-B7PGL23WM-S68CAS53FNGO2B-4JGNT-6RU",
     port: 9999,
     redis: {
         host: "localhost",
