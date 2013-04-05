@@ -1,7 +1,20 @@
 var PointGaming = global.PointGaming;
 
 PointGaming.chat_rooms = {
-  GAME_PREFIX: 'Game_',
-  GAME_ROOM_PREFIX: 'GameRoom_',
-  PRIVATE_PREFIX: 'private_'
+  Game: {
+    prefix: 'Game_',
+    regex: /^Game_/
+  },
+  GameRoom: {
+    prefix: 'GameRoom_',
+    regex: /^GameRoom_/
+  },
+  Private: {
+    prefix: 'private_',
+    regex: /^private_/
+  },
+  Stream: {
+    prefix: 'Stream_',
+    regex: /^Stream_/
+  }
 };

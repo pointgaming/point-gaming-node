@@ -1,6 +1,8 @@
 var PointGaming = global.PointGaming,
     currentUserApiClient = require('../../lib/pg-chat/api/current_user');
-    gameRoomApiClient = require('../../lib/pg-chat/api/game_room');
+    gameRoomApiClient = require('../../lib/pg-chat/api/game_room'),
+    streamApiClient = require('../../lib/pg-chat/api/stream');
 
 PointGaming.current_user_api_client = new currentUserApiClient(PointGaming.config.api_url || 'https://dev.pointgaming.com/');
 PointGaming.game_room_api_client = new gameRoomApiClient(PointGaming.config.api_url || 'https://dev.pointgaming.com/', PointGaming.config.api_token);
+PointGaming.stream_api_client = new streamApiClient(PointGaming.config.api_url || 'https://dev.pointgaming.com/', PointGaming.config.api_token);
