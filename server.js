@@ -18,12 +18,11 @@ require('./config/init');
 PointGaming.config = require('config');
 
 // run the initializers
-require('./config/initializers/')(function(err) {
+require('./config/initializers/index')(function(err) {
   if (err) {
     console.log('There was a problem loading the initializers');
-    console.log(err.message);
-    console.log(err.stack);
-    exit(1);
+    console.log(err);
+    process.exit(1);
   }
 
   console.log('starting the server');

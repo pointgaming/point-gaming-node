@@ -7,7 +7,7 @@
     "amqp": "0.1.4",
     "optimist": "0.3.x",
     "config": "0.4.x",
-    "restler": "2.0.1",
+    "restler": "git://github.com/patricklodder/restler.git#0.10.x-eventemitter-compat",
     "async": "0.2.5",
     "string": "1.2.1"
   },
