@@ -1,6 +1,10 @@
 var PointGaming = global.PointGaming;
 
 PointGaming.chat_rooms = {
+  Dispute: {
+    prefix: 'Dispute_',
+    regex: /^Dispute_/
+  },
   Game: {
     prefix: 'Game_',
     regex: /^Game_/
