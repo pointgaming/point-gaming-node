@@ -1,0 +1,78 @@
+Chatrooms
+
+When working with a specific chatroom, the chatroom can be identified by its 'id'. Currently, you can create a chatroom with any id and other users will be able to join the chatroom.
+
+Since chatrooms are used in many places throughout the app and each implementation has its own business logic, the chatrooms 'id' should be in the format "#{type}_#{id}".
+
+Example chatroom ids are: "GameRoom_518347c44e6d46c840000010" and "Stream_5143b3544e6d46ee3d00000d"
+
+The current chatroom types exist:
+Dispute
+Game
+GameRoom
+Private
+Stream
+
+
+
+TODO:
+- Add information about chatroom invites
+
+
+
+Joining a chatroom:
+
+To join a chatroom, emit the event 'Chatroom.join' with the following data:
+{"_id":"Stream_5143b3544e6d46ee3d00000d"}
+
+If Chatroom.join is successful, the server will emit the event 'join_chat' with the following data:
+{"success":true}
+
+
+
+Leaving a chatroom:
+
+To leave a chatroom, emit the event 'Chatroom.leave' with the following data:
+{"_id":"Stream_5143b3544e6d46ee3d00000d"}
+
+
+
+Receiving user join/leave messages from a chatroom:
+
+What a user joins or leaves the chatroom, the server will emit the event 'Chatroom.Member.change' with the following data:
+{"_id":"Stream_5143b3544e6d46ee3d00000d","user":{"_id":"d391e0af-ee5f-4f5f-a95f-0ed5b55779a7","username":"reddit"},"status":"joined"}
+or
+{"_id":"Stream_5143b3544e6d46ee3d00000d","user":{"_id":"d391e0af-ee5f-4f5f-a95f-0ed5b55779a7","username":"reddit"},"status":"left"}
+
+
+
+Sending a message to a chatroom:
+
+To send a message to a chatroom, emit the event 'Chatroom.Message.send' along with the following data:
+{"_id":"Stream_5143b3544e6d46ee3d00000d","message":"Something makes me better"}
+
+
+
+Receiving messages from a chatroom:
+
+When a message is sent to the chatroom, the server will emit the event 'Chatroom.Message.new' with the following data:
+{"_id":"Stream_5143b3544e6d46ee3d00000d","fromUser":{"_id":"0df30f7b-4043-462f-aad2-cf5c8b9878ef","username":"cbankston"},"message":"Something makes me better"}
+
+
+
+List chatrooms that the current user is in:
+
+To list the chatrooms that the current user is currently in (across all websocket connections), emit the event 'Chatroom.User.getList'.
+
+The server will emit the event 'Chatroom.User.list' with the following data:
+{"chatrooms":["GameRoom_518347c44e6d46c840000010","Stream_5143b3544e6d46ee3d00000d"]}
+
+
+
+List members in a specific chatroom:
+
+To list all members within a specified chatroom, emit the event 'Chatroom.Member.getList' with the following data:
+{"_id":"GameRoom_518347c44e6d46c840000010"}
+
+The server will emit the event 'Chatroom.Member.list' with the following data:
+{"_id":"GameRoom_518347c44e6d46c840000010","members":[{"_id":"d391e0af-ee5f-4f5f-a95f-0ed5b55779a7","username":"reddit"}]}

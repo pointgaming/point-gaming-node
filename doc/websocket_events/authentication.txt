@@ -1,0 +1,21 @@
+Authentication
+
+Before you authenticate with the websocket server, you will need to obtain a user auth_token by logging into the Point Gaming Rails API. See the following url for more information:
+TODO: docs for this do not currently exist
+
+Once you establish a connection to the websocket server, the server will emit the event 'ready'. Once this event has been received, you can emit the 'auth' event described below. I believe this is unnecessary and should be removed. Please let me know if you need this event or not (my javascript implementation doesn't use this).
+
+
+
+Authenticating the websocket connection:
+
+You can authenticate the websocket connection by emitting the event 'auth' with the following data:
+{"auth_token":"5a40014b-a0c6-42f2-b806-db998e5c0808"}
+
+In response, the server will emit the event 'auth_resp'.
+
+If authentication was successful, the server will emit the event 'auth_resp' with the following data:
+{"success":true,"username":"cbankston","user":{"_id":"0df30f7b-4043-462f-aad2-cf5c8b9878ef","admin":true,"age":27,"avatar_content_type":"image/jpeg","avatar_file_name":"Azure_Twilight_Logo_large.jpg","avatar_file_size":30548,"avatar_updated_at":"2013-04-24T17:54:17-05:00","birth_date":"1986-07-19","country":"US","created_at":"2013-05-26T16:05:14-05:00","dispute_lost_count":1,"dispute_won_count":1,"email":"chris@whitepaperclip.com","finalized_bets_count":9,"first_name":"Chris","friend_count":3,"game_id":"510090394e6d46607f000066","game_room_owner_count":1,"group_id":"514208f14e6d46950f000004","last_name":"Bankston","match_dispute_lost_count":0,"match_dispute_won_count":0,"match_participation_count":32,"matches_participated_in_count":0,"phone":"1231231234","points":1184,"profile_id":"51256e1a4e6d46bfba000009","reputation":"96.875","slug":"cbankston","state":"TX","status":"offline","stream_owner_count":1,"stripe_customer_token":"cus_1a74bQoKSZK2TA","team":{"_id":"512bf1354e6d46af1900000f","created_at":"2013-02-25T17:18:13-06:00","game_points":{"":253,"510090394e6d46607f000066":1183,"510090394e6d46607f0000cb":125},"logo_content_type":"image/jpeg","logo_file_name":"Azure_Twilight_Banner3_solid.jpg","logo_file_size":42530,"logo_updated_at":"2013-05-27T19:05:42-05:00","member_count":6,"name":"Azure Twilight","points":1561,"slug":"azure_twilight","tag":"[AT]","updated_at":"2013-05-27T19:07:52-05:00"},"team_id":"512bf1354e6d46af1900000f","time_zone":"Central Time (US & Canada)","updated_at":"2013-06-12T04:00:24-05:00","username":"cbankston","profile_url":"http://localhost:3000/u/cbankston"}}
+
+If authentication failed, the server will emit the event 'auth_resp' with the following data:
+{"success":false}
