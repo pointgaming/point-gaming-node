@@ -2,7 +2,6 @@ var async = require('async'),
     initializers = [
       'amqp',
       'api_client',
-      'chat_rooms',
       'redis',
       'load_models',
       'cleanup_redis'
