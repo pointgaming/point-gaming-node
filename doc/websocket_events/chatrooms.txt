@@ -75,9 +75,4 @@ To list all members within a specified chatroom, emit the event 'Chatroom.Member
 {"_id":"GameRoom_518347c44e6d46c840000010"}
 
 The server will emit the event 'Chatroom.Member.list' with the following data:
-
-If the chatroom belongs to a game room:
 {"_id":"GameRoom_518347c44e6d46c840000010","members":[{"_id":"0df30f7b-4043-462f-aad2-cf5c8b9878ef","username":"cbankston","points":1184,"group_prefix":"#","team":{"_id":"512bf1354e6d46af1900000f","name":"Azure Twilight","slug":"azure_twilight","points":1561}}]}
-
-If the chatroom is any other type of chatroom, the member information will be limited:
-{"_id":"Stream_518227c44e6d46c840000021","members":[{"_id":"d391e0af-ee5f-4f5f-a95f-0ed5b55779a7","username":"reddit"}]}
