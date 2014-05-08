@@ -9,8 +9,8 @@ var config = {
         port: 6379
     },
     ssl: {
-        key: '/opt/nginx/keys/server.key',
-        cert: '/etc/ssl/certs/star_pointgaming_com.pem'
+        key: "/opt/nginx/keys/server.key",
+        cert: "/etc/ssl/certs/star_pointgaming_com.pem"
     }
 };
 
